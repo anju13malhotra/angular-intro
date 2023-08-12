@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-md-6">
+      <div class="card" style="width: 28rem;">
+        <img class="card-img-top" 
+            src="https://setupmyhotel.com/images/Departments_That_Make_a_Hotel_Diagram.jpg?ezimgfmt=ng%3Awebp%2Fngcb337%2Frs%3Adevice%2Frscb337-1" 
+            alt="Card image cap"
+            height="200px" width="100px">
+        <div class="card-body">
+          <h5 class="card-title">Add Department</h5>
+          <input type="text" class="form-control mb-3" [formControl]="name">
+          <button class="btn btn-primary" (click)="addDepartment()">
+            {{ isUpdate ? 'Update' : 'Add' }} Department
+            </button>
+          <button class="btn btn-success ml-3" (click)="viewDepartments()">
+            {{ departmentHidden ? 'View' : 'Hide' }} Existing Departments
+        </button>
+        </div>
+
+        <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:5,allowNumbersOnly:true,isPasswordInput:true}"></ng-otp-input>
+      </div>
+    </div>
+    
+
+    <div class="col-md-6" [hidden]="departmentHidden">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dept of departments;let index=index">
+                    <td>{{ index+1 }}</td>
+                    <td>{{ dept.id }}</td>
+                    <td>{{ dept.name }}</td>
+                    <td>
+                        <button class="btn btn-success" (click)="update(dept)">
+                            <span class="fa fa-edit"></span>
+                        </button>
+
+                        <button class="btn btn-danger" (click)="delete(dept,index)">
+                            <span class="fa fa-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
